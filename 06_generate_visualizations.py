@@ -7,8 +7,8 @@ import seaborn as sns
 # ==============================
 print("📊 Loading datasets...")
 try:
-    df_base = pd.read_csv("traffic_data.csv")
-    df_ml = pd.read_csv("ml_traffic_data.csv")
+    df_base = pd.read_csv("data/traffic_data.csv")
+    df_ml = pd.read_csv("data/ml_traffic_data.csv")
 except FileNotFoundError:
     print("❌ Error: Could not find the CSV files. Make sure both simulations have been run!")
     exit()
@@ -51,7 +51,7 @@ plt.tight_layout()
 plt.subplots_adjust(top=0.92) # Make room for the main title
 
 # Save the image to your folder
-plt.savefig("Traffic_AI_Results.png", dpi=300)
+plt.savefig("results/Traffic_AI_Results.png", dpi=300)
 print("✅ Graph saved successfully as 'Traffic_AI_Results.png'")
 
 # Open the graph on your screen

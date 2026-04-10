@@ -12,8 +12,8 @@ warnings.filterwarnings("ignore", category=UserWarning)
 # 1. LOAD ML MODEL
 # ==============================
 model = None
-if os.path.exists("traffic_model.pkl"):
-    model = joblib.load("traffic_model.pkl")
+if os.path.exists("models/traffic_model.pkl"):
+    model = joblib.load("models/traffic_model.pkl")
     print("🧠 ML Model Loaded Successfully!")
 else:
     print("⚠️ Model not found! Please run train_model.py first.")
@@ -23,7 +23,7 @@ else:
 # 2. START SUMO (Increased Teleport Time for Roadblock!)
 # ==============================
 # We increased time-to-teleport to 120s so SUMO doesn't delete our broken car too early!
-sumo_cmd = ["sumo-gui", "-c", "kolkata.sumocfg", "--start", "--time-to-teleport", "120"]
+sumo_cmd = ["sumo-gui", "-c", "sumo_network/kolkata.sumocfg", "--start", "--time-to-teleport", "120"]
 
 try:
     traci.start(sumo_cmd)

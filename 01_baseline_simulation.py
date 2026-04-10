@@ -6,7 +6,7 @@ import pandas as pd
 # START SUMO
 # ==============================
 # Added "--start" so the simulation begins automatically
-sumo_cmd = ["sumo-gui", "-c", "kolkata.sumocfg", "--start"]
+sumo_cmd = ["sumo-gui", "-c", "sumo_network/kolkata.sumocfg", "--start"]
 
 try:
     traci.start(sumo_cmd)
@@ -110,7 +110,7 @@ while step < 3600:
 # SAVE CSV
 # ==============================
 df = pd.DataFrame(data_log)
-df.to_csv("traffic_data.csv", index=False)
+df.to_csv("data/traffic_data.csv", index=False)
 
 print("📁 Data saved to traffic_data.csv")
 

@@ -8,12 +8,14 @@ Traditional static traffic lights often fail to adapt to real-time road conditio
 1. **Simulation**: Generates realistic baseline traffic data in Kolkata using Eclipse SUMO.
 2. **Machine Learning**: Trains a Random Forest classifier on speed, vehicle count, and CO2 emission data to predict and identify congestion states.
 3. **Chaos Management**: Injects random, disruptive events (stalled vehicles, speeding ambulances) into the simulation and uses the trained AI model to adjust traffic light phases dynamically to dissolve traffic jams and prioritize emergency vehicles.
-4. **Data Visualization**: Compares the baseline (static) traffic flow with the ML-controlled flow, demonstrating enhanced speeds and reduced overall vehicles on the map.
+4. **Reinforcement Learning (Advanced)**: A PyTorch-based Deep Q-Network (DQN) agent that learns to optimize intersection phase timings through trial and error, moving beyond predictive classification to true adaptive AI control.
+5. **Data Visualization**: Compares the baseline (static) traffic flow with the ML-controlled flow, demonstrating enhanced speeds and reduced overall vehicles on the map.
 
 ## 🚀 Features
 
 - **Baseline Intelligent Rerouting**: Dynamic vehicle rerouting based on travel time.
 - **Congestion Prediction Model**: A lightweight Random Forest model trained on generated simulation data.
+- **Deep Reinforcement Learning Agent**: A robust PyTorch DQN agent that natively observes stopping queues at intersections and minimizes total wait times dynamically.
 - **Real-Time Traffic Light Adjustment**: AI intervenes by extending green light durations when congestion is predicted.
 - **Chaos Scenarios**: Built-in edge cases to stress-test the AI, including:
   - **Roadblocks**: A vehicle randomly breaking down for an extended period, creating an artificial chokepoint.
@@ -22,10 +24,13 @@ Traditional static traffic lights often fail to adapt to real-time road conditio
 
 ## 📁 Repository Structure
 
-- `simulation.py`: Runs the initial simulation to collect baseline traffic metrics and saves them to `traffic_data.csv`.
-- `train_model.py`: Reads the collected dataset to train and serialize the Machine Learning model (`traffic_model.pkl`).
-- `Simulation3_Chaos.py`: The advanced simulation script that loads the ML model, injects chaotic elements, and applies dynamic traffic control.
-- `visualize_results.py`: A visualization suite using `seaborn` and `matplotlib` to compare the performance baseline against the AI-controlled outcomes.
+- `01_baseline_simulation.py`: Runs the initial simulation to collect baseline traffic metrics and saves them to `traffic_data.csv`.
+- `02_train_rf_model.py`: Reads the collected dataset to train and serialize the Machine Learning model (`traffic_model.pkl`).
+- `03_run_chaos_simulation.py`: The advanced simulation script that loads the ML model, injects chaotic elements, and applies dynamic traffic control.
+- `04_train_rl_agent.py`: The headless training script allowing the agent to play multiple episodes and learn intersection management.
+- `05_test_rl_agent.py`: The GUI-enabled script utilizing the fully trained `.pth` model file to manage intersection nodes dynamically.
+- `06_generate_visualizations.py`: A visualization suite using `seaborn` and `matplotlib` to compare the performance baseline against the AI-controlled outcomes.
+- `rl_agent_core.py`: The core PyTorch Neural Network architecture forming the Deep Q-Network (DQN) Brain of the RL agent.
 - `kolkata.*`: The SUMO network, routing, and configuration files mapping the real-world topology of Kolkata.
 - `build.bat`: A batch script to convert OpenStreetMap (OSM) data into a SUMO network file and generate random traffic routes.
 - `requirements.txt`: Python dependencies required to run the project.
@@ -50,34 +55,46 @@ To reproduce the full pipeline, execute the scripts in the following order:
 0. **Network Preparation (First Time Only)**
    If you need to generate or regenerate the SUMO network and routes from raw `.osm` data:
    ```cmd
+   cd sumo_network
    build.bat
+   cd ..
    ```
    *This executes SUMO's `netconvert` and `randomTrips.py` tools to create `kolkata.net.xml` and `kolkata.rou.xml`.*
 
 1. **Generate Baseline Data**
    ```bash
-   python simulation.py
+   python 01_baseline_simulation.py
    ```
    *This starts SUMO and logs standard traffic metrics to `traffic_data.csv`.*
 
 2. **Train the AI Model**
    ```bash
-   python train_model.py
+   python 02_train_rf_model.py
    ```
    *This trains the Random Forest classifier and outputs `traffic_model.pkl`.*
 
 3. **Run the AI-Controlled Chaos Simulation**
    *(Note: Ensure you log the output of this script to `ml_traffic_data.csv` if modifying, or run as is to view real-time SUMO adjustments.)*
    ```bash
-   python Simulation3_Chaos.py
+   python 03_run_chaos_simulation.py
    ```
    *Watch as the AI detects roadblocks, clears a path for ambulances, and manages the localized congestion.*
 
 4. **Visualize the Results**
    ```bash
-   python visualize_results.py
+   python 06_generate_visualizations.py
    ```
    *Generates comparative graphs between the baseline run and the AI-controlled run.*
+
+5. **Train and Run the RL Agent**
+   To experiment with the advanced Reinforcement Learning methodology, run the headless training:
+   ```bash
+   python 04_train_rl_agent.py
+   ```
+   *Once training completes (and `.pth` checkpoints are saved), test the smart agent in the GUI:*
+   ```bash
+   python 05_test_rl_agent.py
+   ```
 
 ## 📈 Results
 

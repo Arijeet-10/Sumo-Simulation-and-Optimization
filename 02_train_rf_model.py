@@ -6,7 +6,7 @@ import joblib
 
 # 1. Load the data you just generated
 print("📥 Loading traffic_data.csv...")
-df = pd.read_csv("traffic_data.csv")
+df = pd.read_csv("data/traffic_data.csv")
 
 # 2. Define our Features (X) and Target (y)
 # We want the model to look at these three things...
@@ -28,5 +28,5 @@ accuracy = accuracy_score(y_test, predictions)
 print(f"🎯 Model Accuracy: {accuracy * 100:.2f}%")
 
 # 6. Save the Model for your simulation to use
-joblib.dump(model, "traffic_model.pkl")
+joblib.dump(model, "models/traffic_model.pkl")
 print("✅ Model saved successfully as 'traffic_model.pkl'")
