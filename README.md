@@ -27,6 +27,7 @@ Traditional static traffic lights often fail to adapt to real-time road conditio
 - `Simulation3_Chaos.py`: The advanced simulation script that loads the ML model, injects chaotic elements, and applies dynamic traffic control.
 - `visualize_results.py`: A visualization suite using `seaborn` and `matplotlib` to compare the performance baseline against the AI-controlled outcomes.
 - `kolkata.*`: The SUMO network, routing, and configuration files mapping the real-world topology of Kolkata.
+- `build.bat`: A batch script to convert OpenStreetMap (OSM) data into a SUMO network file and generate random traffic routes.
 - `requirements.txt`: Python dependencies required to run the project.
 
 ## 🛠️ Installation & Setup
@@ -45,6 +46,13 @@ Traditional static traffic lights often fail to adapt to real-time road conditio
 ## 🚗 Usage Workflow
 
 To reproduce the full pipeline, execute the scripts in the following order:
+
+0. **Network Preparation (First Time Only)**
+   If you need to generate or regenerate the SUMO network and routes from raw `.osm` data:
+   ```cmd
+   build.bat
+   ```
+   *This executes SUMO's `netconvert` and `randomTrips.py` tools to create `kolkata.net.xml` and `kolkata.rou.xml`.*
 
 1. **Generate Baseline Data**
    ```bash
