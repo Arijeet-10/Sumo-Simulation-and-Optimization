@@ -1,0 +1,20 @@
+<configuration>
+    <input>
+        <net-file value="kolkata.net.xml"/>
+        <route-files value="kolkata.rou.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+        <end value="3600"/>
+    </time>
+
+    <processing>
+        <time-to-teleport value="300"/>
+        <step-length value="1"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+    </report>
+</configuration>
