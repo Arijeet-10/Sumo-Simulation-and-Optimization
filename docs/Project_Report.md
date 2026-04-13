@@ -2,7 +2,7 @@
 
 **Date:** April 2026  
 **Subject:** Traffic Simulation, Machine Learning, and Edge Case (Chaos) Management
-
+**Authors:** Arijeet Das, Sankalpa Dutta
 ---
 
 ## 1. Executive Summary
@@ -65,5 +65,3 @@ Integrating an underlying ML model with real-time signal processing in a simulat
 - Expand the ML model features to ingest individualized intersection density parameters instead of aggregate global averages.
 - Support real-world sensor API streaming (e.g., live municipal camera grids) into the model.
 
----
-**Prepared By:** AI Systems Simulation Team
